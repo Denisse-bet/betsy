@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOTICA NOVA SALUD | Sistema de Gestión</title>
+    <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">✚</div>
+            <div>
+                <h2>NOVA SALUD</h2>
+                <small>Sistema de gestión</small>
+            </div>
+        </div>
+
+        <p class="menu-title">MENÚ PRINCIPAL</p>
+
+        <nav>
+            <button class="menu-btn active" onclick="mostrarSeccion('inicio', this)">▦ Inicio</button>
+            <button class="menu-btn" onclick="mostrarSeccion('productos', this)">▣ Productos</button>
+            <button class="menu-btn" onclick="mostrarSeccion('ventas', this)">🛒 Ventas</button>
+            <button class="menu-btn" onclick="mostrarSeccion('clientes', this)">♙ Clientes</button>
+            <button class="menu-btn" onclick="mostrarSeccion('proveedores', this)">▤ Proveedores</button>
+            <button class="menu-btn" onclick="mostrarSeccion('inventario', this)">▥ Inventario</button>
+            <button class="menu-btn" onclick="mostrarSeccion('alertas', this)">⚠ Alertas</button>
+            <button class="menu-btn" onclick="mostrarSeccion('reportes', this)">📊 Reportes</button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <strong>BOTICA NOVA SALUD</strong>
+            <small>Gestión farmacéutica</small>
+        </div>
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <h2 id="tituloPagina">Inicio</h2>
+                <p>Bienvenido al sistema de gestión</p>
+            </div>
+
+            <div class="usuario">
+                <div class="avatar">A</div>
+                <div>
+                    <strong>Administrador</strong>
+                    <small>Panel administrativo</small>
+                </div>
+            </div>
+        </header>
+
+        <!-- DASHBOARD -->
+        <section id="inicio" class="seccion activa">
+
+            <div class="dashboard-heading">
+                <div>
+                    <h2>Resumen general</h2>
+                    <p class="subtitulo">Indicadores y actividad de BOTICA NOVA SALUD</p>
+                </div>
+                <button class="btn" type="button" onclick="actualizarDatosSistema(this)">
+                    ↻ Actualizar datos
+                </button>
+            </div>
+
+            <div class="cards">
+
+                <div class="card">
+                    <div class="card-top">
+                        <span>Productos registrados</span>
+                        <span>▣</span>
+                    </div>
+                    <h2 id="totalProductos">0</h2>
+                    <small>Inventario de productos</small>
+                </div>
+
+                <div class="card">
+                    <div class="card-top">
+                        <span>Ventas realizadas</span>
+                        <span>🛒</span>
+                    </div>
+                    <h2 id="totalVentas">0</h2>
+                    <small>Operaciones completadas</small>
+                </div>
+
+                <div class="card">
+                    <div class="card-top">
+                        <span>Ingresos acumulados</span>
+                        <span>💰</span>
+                    </div>
+                    <h2 id="totalIngresos">S/ 0.00</h2>
+                    <small>Total de ventas completadas</small>
+                </div>
+
+                <div class="card">
+                    <div class="card-top">
+                        <span>Clientes registrados</span>
+                        <span>♙</span>
+                    </div>
+                    <h2 id="totalClientes">0</h2>
+                    <small>Base de clientes</small>
+                </div>
+
+            </div>
+
+            <div class="dashboard-grid">
+
+                <div class="panel">
+    <h3>Ventas de los últimos 7 días</h3>
+    <p class="subtitulo">Ingresos diarios en soles</p>
+
+    <div class="grafico-contenedor">
+        <canvas id="graficoVentas"></canvas>
+    </div>
+</div>
+
+                <div class="panel">
+                    <h3>Estado del inventario</h3>
+
+                    <div class="inventory-stat">
+                        <span>Productos activos</span>
+                        <strong id="productosActivos">0</strong>
+                    </div>
+
+                    <div class="inventory-stat">
+                        <span>Stock bajo</span>
+                        <strong class="warning" id="productosStockBajo">0</strong>
+                    </div>
+
+                    <div class="inventory-stat">
+                        <span>Sin stock</span>
+                        <strong class="danger" id="productosSinStock">0</strong>
+                    </div>
+
+                    <div class="inventory-stat">
+                        <span>Lotes próximos a vencer</span>
+                        <strong class="warning" id="productosPorVencer">0</strong>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="dashboard-grid">
+
+                <div class="panel">
+                    <h3>Productos más vendidos</h3>
+                    <div id="productosMasVendidos" class="ranking-list">
+                        <p class="empty-message">Todavía no hay ventas registradas.</p>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h3>Alertas de inventario</h3>
+                    <div id="resumenAlertas" class="ranking-list">
+                        <p class="empty-message">No hay alertas pendientes.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="panel">
+                <h3>Actividad reciente de ventas</h3>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Número de venta</th>
+                                <th>Cliente</th>
+                                <th>Total</th>
+                                <th>Pago</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaVentasDashboard"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- PRODUCTOS -->
+        <section id="productos" class="seccion">
+            <h2>Productos</h2>
+            <p class="subtitulo">Gestión de medicamentos y productos</p>
+
+            <div class="panel">
+                <h3>Registrar producto</h3>
+
+                <form id="formProducto" class="form-grid">
+                    <input name="codigo" placeholder="Código" required>
+                    <input name="nombre" placeholder="Nombre del producto" required>
+                    <input name="concentracion" placeholder="Concentración">
+                    <input name="presentacion" placeholder="Presentación">
+                    <input name="laboratorio" placeholder="Laboratorio">
+                    <input name="categoria" placeholder="ID de categoría" required>
+                    <input name="precioCompra" type="number" min="0" step="0.01" placeholder="Precio de compra" required>
+                    <input name="precioVenta" type="number" min="0" step="0.01" placeholder="Precio de venta" required>
+                    <input name="stock" type="number" min="0" placeholder="Stock inicial" required>
+                    <input name="stockMinimo" type="number" min="0" placeholder="Stock mínimo" required>
+
+                    <button class="btn" type="submit">Guardar producto</button>
+                </form>
+            </div>
+
+            <div class="panel">
+                <h3>Lista de productos</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Producto</th>
+                                <th>Precio venta</th>
+                                <th>Stock</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaProductos"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- CLIENTES -->
+        <section id="clientes" class="seccion">
+            <h2>Clientes</h2>
+            <p class="subtitulo">Registro y consulta de clientes</p>
+
+            <div class="panel">
+                <h3>Registrar cliente</h3>
+
+                <form id="formCliente" class="form-grid">
+                    <select name="tipoDocumento">
+                        <option value="DNI">DNI</option>
+                        <option value="RUC">RUC</option>
+                        <option value="CE">CE</option>
+                        <option value="OTRO">OTRO</option>
+                    </select>
+
+                    <input name="numeroDocumento" placeholder="Número de documento">
+                    <input name="nombres" placeholder="Nombres" required>
+                    <input name="apellidos" placeholder="Apellidos">
+                    <input name="telefono" placeholder="Teléfono">
+                    <input name="correo" type="email" placeholder="Correo">
+                    <input name="direccion" placeholder="Dirección">
+
+                    <button class="btn" type="submit">Registrar cliente</button>
+                </form>
+            </div>
+
+            <div class="panel">
+                <h3>Clientes registrados</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Documento</th>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>Teléfono</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaClientes"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROVEEDORES -->
+        <section id="proveedores" class="seccion">
+            <h2>Proveedores</h2>
+            <p class="subtitulo">Gestión de proveedores</p>
+
+            <div class="panel">
+                <h3>Registrar proveedor</h3>
+
+                <form id="formProveedor" class="form-grid">
+                    <select name="tipoDocumento">
+                        <option value="RUC">RUC</option>
+                        <option value="DNI">DNI</option>
+                        <option value="CE">CE</option>
+                    </select>
+
+                    <input name="numeroDocumento" placeholder="Número de documento" required>
+                    <input name="razonSocial" placeholder="Razón social" required>
+                    <input name="nombreComercial" placeholder="Nombre comercial">
+                    <input name="contacto" placeholder="Persona de contacto">
+                    <input name="telefono" placeholder="Teléfono">
+                    <input name="correo" type="email" placeholder="Correo">
+                    <input name="direccion" placeholder="Dirección">
+
+                    <button class="btn" type="submit">Registrar proveedor</button>
+                </form>
+            </div>
+
+            <div class="panel">
+                <h3>Proveedores registrados</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Documento</th>
+                                <th>Razón social</th>
+                                <th>Contacto</th>
+                                <th>Teléfono</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaProveedores"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- VENTAS -->
+        <section id="ventas" class="seccion">
+            <h2>Ventas</h2>
+            <p class="subtitulo">Registro y consulta de ventas</p>
+
+            <div class="panel">
+                <h3>Registrar venta</h3>
+
+                <form id="formVenta" class="form-grid">
+                    <input name="nombreCliente" placeholder="Nombre del cliente" value="Cliente general">
+                    <input name="producto" placeholder="ID del producto" required>
+                    <input name="cantidad" type="number" min="1" placeholder="Cantidad" required>
+
+                    <select name="metodoPago">
+                        <option value="efectivo">Efectivo</option>
+                        <option value="tarjeta">Tarjeta</option>
+                        <option value="transferencia">Transferencia</option>
+                        <option value="yape">Yape</option>
+                        <option value="plin">Plin</option>
+                    </select>
+
+                    <input name="descuento" type="number" min="0" step="0.01" value="0" placeholder="Descuento">
+
+                    <button class="btn" type="submit">Registrar venta</button>
+                </form>
+
+                <p class="nota">El precio se obtiene del producto registrado y el sistema descuenta el stock automáticamente.</p>
+            </div>
+
+            <div class="panel">
+                <h3>Ventas realizadas</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Número</th>
+                                <th>Cliente</th>
+                                <th>Total</th>
+                                <th>Pago</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaVentas"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- INVENTARIO -->
+        <section id="inventario" class="seccion">
+            <h2>Inventario</h2>
+            <p class="subtitulo">Consulta de existencias actuales</p>
+
+            <div class="panel">
+                <button class="btn" type="button" onclick="actualizarInventarioCompleto(this)">
+                    ↻ Actualizar inventario
+                </button>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Código</th>
+                                <th>Stock disponible</th>
+                                <th>Stock mínimo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaInventario"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        
+<!-- ALERTAS -->
+<section id="alertas" class="seccion">
+    <h2>Alertas</h2>
+    <p class="subtitulo">Control de alertas de inventario</p>
+
+    <div class="panel">
+
+        <button class="btn" type="button"
+            onclick="generarYActualizarAlertas(this)">
+            ↻ Generar y actualizar alertas
+        </button>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Mensaje</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaAlertas"></tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<!-- REPORTES -->
+<section id="reportes" class="seccion">
+
+    <h2>Reportes</h2>
+    <p class="subtitulo">Control y análisis de BOTICA NOVA SALUD</p>
+
+    <div class="panel">
+        <h3>Reporte de ventas</h3>
+
+        <label>Desde:</label>
+        <input type="date" id="fechaInicioReporte">
+
+        <label>Hasta:</label>
+        <input type="date" id="fechaFinReporte">
+
+        <button class="btn" type="button" onclick="generarReporteVentas()">
+            Generar reporte
+        </button>
+
+        <button class="btn" type="button" onclick="window.print()">
+            Imprimir reporte
+        </button>
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <span>Total de ventas</span>
+            <h2 id="reporteCantidadVentas">0</h2>
+        </div>
+
+        <div class="card">
+            <span>Ingresos</span>
+            <h2 id="reporteIngresos">S/ 0.00</h2>
+        </div>
+
+        <div class="card">
+            <span>Unidades vendidas</span>
+            <h2 id="reporteUnidades">0</h2>
+        </div>
+
+    </div>
+
+    <div class="panel">
+        <h3>Detalle de ventas</h3>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Número</th>
+                        <th>Fecha</th>
+                        <th>Cliente</th>
+                        <th>Total</th>
+                        <th>Método de pago</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaReporteVentas"></tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+
+    </main>
+</div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso | BOTICA NOVA SALUD</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+    <main class="login-container">
+        <section class="login-card">
+            <div class="logo">
+                <span>✚</span>
+            </div>
+
+            <h1>BOTICA NOVA SALUD</h1>
+            <p class="subtitle">Sistema de gestión farmacéutica</p>
+
+            <form id="formLogin">
+                <label for="usuario">Usuario</label>
+                <input
+                    type="text"
+                    id="usuario"
+                    placeholder="Ingresa tu usuario"
+                    autocomplete="username"
+                    required
+                >
+
+                <label for="password">Contraseña</label>
+                <div class="password-container">
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Ingresa tu contraseña"
+                        autocomplete="current-password"
+                        required
+                    >
+                    <button type="button" id="mostrarPassword">
+                        Ver
+                    </button>
+                </div>
+
+                <p id="mensaje" role="alert"></p>
+
+                <button type="submit" id="btnLogin">
+                    INICIAR SESIÓN
+                </button>
+            </form>
+
+            <p class="footer">© 2026 BOTICA NOVA SALUD</p>
+        </section>
+    </main>
+
+    <script src="login.js"></script>
+</body>
+</html>
